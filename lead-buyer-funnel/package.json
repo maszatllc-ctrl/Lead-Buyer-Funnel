@@ -1,9 +1,0 @@
-{
-  "name": "lead-buyer-funnel",
-  "version": "1.0.0",
-  "description": "Quick Life Rates - Lead buyer landing page and qualification funnel",
-  "private": true,
-  "engines": {
-    "node": ">=18"
-  }
-}
