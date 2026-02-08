@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>See If You Qualify — Quick Life Rates</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<script src="/api/pixel-config"></script>
+<!-- Facebook Pixel -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', window.__FB_PIXEL_ID || '');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=&ev=PageView&noscript=1"/></noscript>
+<style>
+  :root {
+    --navy: #0B1120;
+    --navy-light: #111827;
+    --white-pure: #FFFFFF;
+    --gray-light: #C5C9D6;
+    --gray: #8A8F9E;
+    --gold: #D4A843;
+    --gold-dim: rgba(212, 168, 67, 0.08);
+    --green: #34D399;
+    --red: #E85D4A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--gray-light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .form-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .form-header .brand {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white-pure);
+  }
+
+  .form-header .close-btn {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .form-header .close-btn:hover {
+    color: var(--white-pure);
+  }
+
+  .progress-container {
+    padding: 24px 24px 0;
+    max-width: 560px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .progress-segment {
+    flex: 1;
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .progress-segment.active,
+  .progress-segment.completed {
+    background: var(--gold);
+  }
+
+  .progress-text {
+    text-align: right;
+    font-size: 13px;
+    color: var(--gray);
+  }
+
+  .form-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 24px 120px;
+  }
+
+  .form-inner {
+    max-width: 560px;
+    width: 100%;
+  }
+
+  .step {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+
+  .step.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 12px;
+  }
+
+  .step h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--white-pure);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .step .step-desc {
+    font-size: 16px;
+    color: var(--gray);
+    margin-bottom: 32px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .option-card {
+    background: var(--navy-light);
+    border: 2px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .option-card:hover {
+    border-color: rgba(212, 168, 67, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .option-card.selected {
+    border-color: var(--gold);
+    background: rgba(212, 168, 67, 0.06);
+  }
+
+  .option-card .option-text {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--white-pure);
+  }
+
+  .option-card .option-sub {
+    font-size: 14px;
+    color: var(--gray);
+    margin-top: 2px;
+    font-weight: 400;
+  }
+
+  .option-card .check-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .option-card.selected .check-circle {
+    border-color: var(--gold);
+    background: var(--gold);
+  }
+
+  .option-card.selected .check-circle::after {
+    content: '✓';
+    color: var(--navy);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-light);
+  }
+
+  .field-group input {
+    background: var(--navy-light);
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white-pure);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .field-group input::placeholder {
+    color: var(--gray);
+  }
+
+  .field-group input:focus {
+    border-color: var(--gold);
+  }
+
+  .field-group .error-msg {
+    font-size: 13px;
+    color: var(--red);
+    display: none;
+  }
+
+  .field-group.error input {
+    border-color: var(--red);
+  }
+
+  .field-group.error .error-msg {
+    display: block;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+  }
+
+  .btn-back {
+    background: none;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--gray-light);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-back:hover {
+    border-color: rgba(255,255,255,0.2);
+    color: var(--white-pure);
+  }
+
+  .btn-back.hidden {
+    visibility: hidden;
+  }
+
+  .btn-next {
+    background: var(--gold);
+    border: none;
+    border-radius: 10px;
+    padding: 14px 36px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--navy);
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .btn-next:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .btn-next:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @media (max-width: 600px) {
+    .step h2 { font-size: 24px; }
+    .form-wrapper { padding: 28px 20px 120px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="form-header">
+  <div class="brand">Quick Life Rates</div>
+  <a href="/" class="close-btn">✕ Close</a>
+</div>
+
+<div class="progress-container">
+  <div class="progress-bar">
+    <div class="progress-segment active" data-step="1"></div>
+    <div class="progress-segment" data-step="2"></div>
+    <div class="progress-segment" data-step="3"></div>
+    <div class="progress-segment" data-step="4"></div>
+    <div class="progress-segment" data-step="5"></div>
+  </div>
+  <div class="progress-text">Step <span id="current-step">1</span> of 5</div>
+</div>
+
+<div class="form-wrapper">
+  <div class="form-inner">
+
+    <!-- Step 1: Lead Type -->
+    <div class="step active" data-step="1">
+      <div class="step-label">Step 1</div>
+      <h2>What type of leads are you looking for?</h2>
+      <p class="step-desc">Select the coverage type you want to sell.</p>
+      <div class="options" data-field="lead_type">
+        <div class="option-card" data-value="Term Life">
+          <div><div class="option-text">Term Life</div></div>
+          <div class="check-circle"></div>
+        </div>
+        <div class="option-card" data-value="IUL">
+          <div><div class="option-text">IUL</div></div>
+          <div class="check-circle"></div>
+        </div>
+        <div class="option-card" data-value="Both">
+          <div>
+            <div class="option-text">Both</div>
+            <div class="option-sub">Term Life + IUL</div>
+          </div>
+          <div class="check-circle"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Volume -->
+    <div class="step" data-step="2">
+      <div class="step-label">Step 2</div>
+      <h2>How many leads do you want per week?</h2>
+      <p class="step-desc">Pick the volume that fits your budget.</p>
+      <div class="options" data-field="volume">
+        <div class="option-card" data-value="5-10">
+          <div><div class="option-text">5 – 10 leads</div></div>
+          <div class="check-circle"></div>
+        </div>
+        <div class="option-card" data-value="10-25">
+          <div><div class="option-text">10 – 25 leads</div></div>
+          <div class="check-circle"></div>
+        </div>
+        <div class="option-card" data-value="25-50">
+          <div><div class="option-text">25 – 50 leads</div></div>
+          <div class="check-circle"></div>
+        </div>
+        <div class="option-card" data-value="50+">
+          <div><div class="option-text">50+ leads</div></div>
+          <div class="check-circle"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Number of States -->
+    <div class="step" data-step="3">
+      <div class="step-label">Step 3</div>
+      <h2>How many states do you want leads from?</h2>
+      <p class="step-desc">We'll confirm your exact states on the call.</p>
+      <div class="options" data-field="states">
+        <div class="option-card" data-value="1">
+          <div><div class="option-text">1 state</div></div>
+          <div class="check-circle"></div>
+        </div>
+        <div class="option-card" data-value="2-10">
+          <div><div class="option-text">2 – 10 states</div></div>
+          <div class="check-circle"></div>
+        </div>
+        <div class="option-card" data-value="11-25">
+          <div><div class="option-text">11 – 25 states</div></div>
+          <div class="check-circle"></div>
+        </div>
+        <div class="option-card" data-value="25+">
+          <div>
+            <div class="option-text">25+ states</div>
+            <div class="option-sub">Nationwide coverage</div>
+          </div>
+          <div class="check-circle"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Urgency -->
+    <div class="step" data-step="4">
+      <div class="step-label">Step 4</div>
+      <h2>How soon do you want to start?</h2>
+      <p class="step-desc">This helps us prioritize your setup.</p>
+      <div class="options" data-field="urgency">
+        <div class="option-card" data-value="ASAP">
+          <div>
+            <div class="option-text">ASAP</div>
+            <div class="option-sub">I'm ready to go right now</div>
+          </div>
+          <div class="check-circle"></div>
+        </div>
+        <div class="option-card" data-value="Within a week">
+          <div><div class="option-text">Within a week</div></div>
+          <div class="check-circle"></div>
+        </div>
+        <div class="option-card" data-value="Within a month">
+          <div><div class="option-text">Within a month</div></div>
+          <div class="check-circle"></div>
+        </div>
+        <div class="option-card" data-value="Just exploring">
+          <div>
+            <div class="option-text">Just exploring</div>
+            <div class="option-sub">Not ready yet, just want to learn more</div>
+          </div>
+          <div class="check-circle"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5: Contact Info -->
+    <div class="step" data-step="5">
+      <div class="step-label">Step 5</div>
+      <h2>Almost there — how can we reach you?</h2>
+      <p class="step-desc">We'll call to confirm your state availability and get you set up.</p>
+      <div class="form-fields">
+        <div class="field-group">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" placeholder="John Smith" autocomplete="name">
+          <span class="error-msg">Please enter your name</span>
+        </div>
+        <div class="field-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="(555) 123-4567" autocomplete="tel">
+          <span class="error-msg">Please enter a valid phone number</span>
+        </div>
+        <div class="field-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="john@example.com" autocomplete="email">
+          <span class="error-msg">Please enter a valid email</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <button class="btn-back hidden" id="btn-back">← Back</button>
+  <button class="btn-next" id="btn-next" disabled>Next →</button>
+</div>
+
+<script>
+  const totalSteps = 5;
+  let currentStep = 1;
+  const formData = { lead_type: '', volume: '', states: '', urgency: '', name: '', phone: '', email: '' };
+
+  const btnBack = document.getElementById('btn-back');
+  const btnNext = document.getElementById('btn-next');
+  const currentStepEl = document.getElementById('current-step');
+
+  // Capture fbclid from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const fbclid = urlParams.get('fbclid') || sessionStorage.getItem('fbclid') || '';
+  if (fbclid) sessionStorage.setItem('fbclid', fbclid);
+
+  // Option card click handlers (auto-advance)
+  document.querySelectorAll('.options').forEach(group => {
+    const field = group.dataset.field;
+    group.querySelectorAll('.option-card').forEach(card => {
+      card.addEventListener('click', () => {
+        group.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        formData[field] = card.dataset.value;
+        updateNav();
+        setTimeout(() => {
+          if (currentStep < totalSteps) goToStep(currentStep + 1);
+        }, 350);
+      });
+    });
+  });
+
+  btnBack.addEventListener('click', () => {
+    if (currentStep > 1) goToStep(currentStep - 1);
+  });
+
+  btnNext.addEventListener('click', () => {
+    if (currentStep === totalSteps) {
+      if (validateContact()) submitForm();
+    } else {
+      goToStep(currentStep + 1);
+    }
+  });
+
+  function goToStep(step) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.step[data-step="${step}"]`).classList.add('active');
+    currentStep = step;
+    updateProgress();
+    updateNav();
+    window.scrollTo(0, 0);
+  }
+
+  function updateProgress() {
+    currentStepEl.textContent = currentStep;
+    document.querySelectorAll('.progress-segment').forEach(seg => {
+      const segStep = parseInt(seg.dataset.step);
+      seg.classList.remove('active', 'completed');
+      if (segStep < currentStep) seg.classList.add('completed');
+      if (segStep === currentStep) seg.classList.add('active');
+    });
+  }
+
+  function updateNav() {
+    btnBack.classList.toggle('hidden', currentStep === 1);
+    btnNext.textContent = currentStep === totalSteps ? 'Submit →' : 'Next →';
+
+    let enabled = false;
+    switch (currentStep) {
+      case 1: enabled = !!formData.lead_type; break;
+      case 2: enabled = !!formData.volume; break;
+      case 3: enabled = !!formData.states; break;
+      case 4: enabled = !!formData.urgency; break;
+      case 5: enabled = true; break;
+    }
+    btnNext.disabled = !enabled;
+  }
+
+  function validateContact() {
+    let valid = true;
+    const nameField = document.getElementById('full-name');
+    const phoneField = document.getElementById('phone');
+    const emailField = document.getElementById('email');
+
+    document.querySelectorAll('.field-group').forEach(g => g.classList.remove('error'));
+
+    if (!nameField.value.trim()) {
+      nameField.closest('.field-group').classList.add('error');
+      valid = false;
+    }
+    if (!phoneField.value.trim() || phoneField.value.replace(/\D/g, '').length < 10) {
+      phoneField.closest('.field-group').classList.add('error');
+      valid = false;
+    }
+    if (!emailField.value.trim() || !emailField.value.includes('@')) {
+      emailField.closest('.field-group').classList.add('error');
+      valid = false;
+    }
+
+    formData.name = nameField.value.trim();
+    formData.phone = phoneField.value.trim();
+    formData.email = emailField.value.trim();
+    return valid;
+  }
+
+  async function submitForm() {
+    btnNext.disabled = true;
+    btnNext.textContent = 'Submitting...';
+
+    // 1. Fire FB Pixel Lead event (client-side)
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Lead', {
+        content_name: formData.lead_type,
+        content_category: 'life_insurance_lead_buyer'
+      });
+    }
+
+    // 2. Send to server-side CAPI endpoint
+    try {
+      await fetch('/api/fb-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          fbclid: sessionStorage.getItem('fbclid') || '',
+          fbc: getCookie('_fbc') || '',
+          fbp: getCookie('_fbp') || '',
+          source_url: window.location.href,
+          user_agent: navigator.userAgent
+        })
+      });
+    } catch (e) {
+      console.warn('CAPI send failed:', e);
+    }
+
+    // 3. Store data and redirect
+    sessionStorage.setItem('qualifyData', JSON.stringify(formData));
+    window.location.href = '/qualify-success.html';
+  }
+
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : '';
+  }
+
+  // Phone number formatting
+  document.getElementById('phone').addEventListener('input', function(e) {
+    let val = e.target.value.replace(/\D/g, '');
+    if (val.length > 0) {
+      if (val.length <= 3) {
+        val = '(' + val;
+      } else if (val.length <= 6) {
+        val = '(' + val.substring(0, 3) + ') ' + val.substring(3);
+      } else {
+        val = '(' + val.substring(0, 3) + ') ' + val.substring(3, 6) + '-' + val.substring(6, 10);
+      }
+    }
+    e.target.value = val;
+  });
+
+  document.querySelectorAll('.form-fields input').forEach(input => {
+    input.addEventListener('input', () => updateNav());
+  });
+
+  updateNav();
+</script>
+
+</body>
+</html>
