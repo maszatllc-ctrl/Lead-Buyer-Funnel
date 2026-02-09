@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .arrow{fill:#6BA4DC;stroke:none}
+    </style>
+  </defs>
+  <!-- Circular arrows -->
+  <path class="arrow" d="M50 8 A42 42 0 0 1 88 62l-8-3A34 34 0 0 0 50 16Z"/>
+  <polygon class="arrow" points="90,55 98,68 82,68"/>
+  <path class="arrow" d="M82 72 A42 42 0 0 1 18 72l5-7A34 34 0 0 0 75 67Z"/>
+  <polygon class="arrow" points="15,78 8,65 24,65"/>
+  <path class="arrow" d="M18 62 A42 42 0 0 1 50 8l0 8A34 34 0 0 0 25 58Z"/>
+  <!-- R letter -->
+  <path class="arrow" d="M38 30h14c8 0 13 5 13 12s-5 12-13 12h-4l18 18h-12L38 54V30Zm8 7v10h6c3 0 5-2 5-5s-2-5-5-5Z"/>
+</svg>
