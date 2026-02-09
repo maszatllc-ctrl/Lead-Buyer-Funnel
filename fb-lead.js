@@ -17,6 +17,7 @@ module.exports = async function handler(req, res) {
   const PIXEL_ID = process.env.FB_PIXEL_ID;
   const ACCESS_TOKEN = process.env.FB_ACCESS_TOKEN;
   const WEBHOOK_URL = process.env.WEBHOOK_URL;
+  const TEST_EVENT_CODE = process.env.FB_TEST_EVENT_CODE;
 
   try {
     const {
@@ -93,6 +94,7 @@ module.exports = async function handler(req, res) {
 
       // Build event payload
       const eventData = {
+        ...(TEST_EVENT_CODE ? { test_event_code: TEST_EVENT_CODE } : {}),
         data: [
           {
             event_name: 'Lead',
