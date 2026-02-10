@@ -191,12 +191,16 @@
   .vsl-container {
     border-radius: 12px;
     overflow: hidden;
+    padding: 56.25% 0 0 0;
+    position: relative;
   }
 
   .vsl-container iframe {
-    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: 100%;
     border: none;
   }
 
@@ -746,8 +750,9 @@
 <section class="vsl-section">
   <div class="container">
     <div class="vsl-container fade-up">
-      <iframe src="https://app.heygen.com/embedded-player/177feb94ac744a038fa8b64ffe4611dd" title="HeyGen video player" frameborder="0" allow="encrypted-media; fullscreen;" allowfullscreen></iframe>
+      <iframe src="https://player.vimeo.com/video/1163781844?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="VSL Video"></iframe>
     </div>
+    <script src="https://player.vimeo.com/api/player.js"></script>
   </div>
 </section>
 
