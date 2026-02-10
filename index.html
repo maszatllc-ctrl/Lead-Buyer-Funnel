@@ -204,39 +204,54 @@
     border: none;
   }
 
-  .unmute-banner {
+  .vsl-overlay {
     position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 40px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 10;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
-    transition: background 0.2s, transform 0.2s;
-    white-space: nowrap;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.45);
+    transition: background 0.2s;
   }
 
-  .unmute-banner:hover {
-    background: rgba(212, 168, 67, 0.9);
+  .vsl-overlay:hover {
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  .vsl-overlay:hover .vsl-sound-btn {
+    background: var(--gold);
     color: var(--navy);
   }
 
-  .unmute-banner svg {
-    width: 18px;
-    height: 18px;
+  .vsl-sound-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    pointer-events: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .vsl-sound-btn svg {
+    width: 22px;
+    height: 22px;
     fill: currentColor;
   }
 
-  .unmute-banner.hidden {
+  .vsl-overlay.hidden {
     display: none;
   }
 
@@ -787,23 +802,24 @@
   <div class="container">
     <div class="vsl-container fade-up">
       <iframe id="vsl-player" src="https://player.vimeo.com/video/1163781844?badge=0&amp;autopause=0&amp;autoplay=1&amp;muted=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="VSL Video"></iframe>
-      <div class="unmute-banner" id="unmute-banner">
-        <svg viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 8.1V4l-5 4H5v8h4l5 4v-4.1a4.5 4.5 0 0 0 2.5-3.9zM14 3.2v1.7a6 6 0 0 1 0 10.2v1.7a7.5 7.5 0 0 0 0-13.6z"/></svg>
-        Click to unmute
+      <div class="vsl-overlay" id="vsl-overlay">
+        <div class="vsl-sound-btn">
+          <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8.1v7.8a4.47 4.47 0 0 0 2.5-3.9zM14 3.2v2a6.5 6.5 0 0 1 0 13.6v2A8.5 8.5 0 0 0 14 3.2z"/></svg>
+          Click to enable sound
+        </div>
       </div>
     </div>
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
       (function() {
-        var iframe = document.getElementById('vsl-player');
-        var banner = document.getElementById('unmute-banner');
-        var player = new Vimeo.Player(iframe);
-        banner.addEventListener('click', function() {
+        var overlay = document.getElementById('vsl-overlay');
+        var player = new Vimeo.Player(document.getElementById('vsl-player'));
+        overlay.addEventListener('click', function() {
           player.setCurrentTime(0);
           player.setVolume(1);
           player.setMuted(false);
           player.play();
-          banner.classList.add('hidden');
+          overlay.classList.add('hidden');
         });
       })();
     </script>
