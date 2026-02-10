@@ -204,6 +204,42 @@
     border: none;
   }
 
+  .unmute-banner {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+
+  .unmute-banner:hover {
+    background: rgba(212, 168, 67, 0.9);
+    color: var(--navy);
+  }
+
+  .unmute-banner svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  .unmute-banner.hidden {
+    display: none;
+  }
+
   /* ===== SECTION STYLES ===== */
   .section-divider {
     border-top: 1px solid rgba(255,255,255,0.05);
@@ -750,9 +786,27 @@
 <section class="vsl-section">
   <div class="container">
     <div class="vsl-container fade-up">
-      <iframe src="https://player.vimeo.com/video/1163781844?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="VSL Video"></iframe>
+      <iframe id="vsl-player" src="https://player.vimeo.com/video/1163781844?badge=0&amp;autopause=0&amp;autoplay=1&amp;muted=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="VSL Video"></iframe>
+      <div class="unmute-banner" id="unmute-banner">
+        <svg viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 8.1V4l-5 4H5v8h4l5 4v-4.1a4.5 4.5 0 0 0 2.5-3.9zM14 3.2v1.7a6 6 0 0 1 0 10.2v1.7a7.5 7.5 0 0 0 0-13.6z"/></svg>
+        Click to unmute
+      </div>
     </div>
     <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+      (function() {
+        var iframe = document.getElementById('vsl-player');
+        var banner = document.getElementById('unmute-banner');
+        var player = new Vimeo.Player(iframe);
+        banner.addEventListener('click', function() {
+          player.setCurrentTime(0);
+          player.setVolume(1);
+          player.setMuted(false);
+          player.play();
+          banner.classList.add('hidden');
+        });
+      })();
+    </script>
   </div>
 </section>
 
